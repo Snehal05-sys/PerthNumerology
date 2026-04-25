@@ -1,11 +1,13 @@
-/**
- * Translation Utility Mock
- * Real translation requires an API key (e.g. Google Translate API).
- * This mock returns the original text to prevent build errors.
- */
+// ── Translation Utility using MyMemory free API ───────────────────────────
 
-export async function translateText(text, targetLang) {
-  console.warn(`Translation to ${targetLang} requested, but translateUtils is in mock mode.`);
-  // In a real app, you'd fetch from a translation service here.
-  return text; 
+export async function translateText(text, targetLang = "hi") {
+  try {
+    const res = await fetch(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`
+    );
+    const data = await res.json();
+    return data.responseData?.translatedText || text;
+  } catch {
+    return text;
+  }
 }
