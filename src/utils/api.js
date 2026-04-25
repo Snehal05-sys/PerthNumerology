@@ -1,6 +1,6 @@
 // ── API Utility — connects React frontend to Express/MongoDB backend ───────
 
-const BASE_URL = "https://perth-numerology-backend.onrender.com/api";
+const BASE_URL = "https://perth-numerology-backendd.onrender.com/api";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
