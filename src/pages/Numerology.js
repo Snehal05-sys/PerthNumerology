@@ -88,10 +88,12 @@ export default function Numerology({ user, onSaveHistory }) {
     if (user && onSaveHistory) {
       onSaveHistory({
         type: "numerology",
+        name: fullName,
+        dob: birthDate,
         date: new Date().toLocaleDateString(),
         lifePath: res.lifePath,
-        destiny: res.destiny,
-        soulUrge: res.soulUrge,
+        destinyNumber: res.destiny,
+        soulUrgeNumber: res.soulUrge,
       });
     }
   }
