@@ -1,20 +1,14 @@
-/**
- * Text-to-Speech Utility using Web Speech API
- */
+// ── Speech Utility using Web Speech API ──────────────────────────────────
 
-let currentUtterance = null;
+let utterance = null;
 
 export function speakText(text) {
   if (!window.speechSynthesis) return;
-  
-  // Stop existing speech
-  window.speechSynthesis.cancel();
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 0.9; // Slightly slower for mystical feel
-  utterance.pitch = 1.0;
-  
-  currentUtterance = utterance;
+  stopSpeech();
+  utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+  utterance.rate = 0.95;
+  utterance.pitch = 1;
   window.speechSynthesis.speak(utterance);
 }
 
@@ -28,4 +22,6 @@ export function resumeSpeech() {
 
 export function stopSpeech() {
   if (window.speechSynthesis) window.speechSynthesis.cancel();
+  utterance = null;
 }
+
