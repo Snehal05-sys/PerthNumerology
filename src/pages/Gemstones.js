@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef } from "react";
+import { useState } from "react";
 import PremiumActionBar from "../components/PremiumActionBar";
 import Gemstone3DViewer from "../components/Gemstone3DViewer";
 import { translateText } from "../utils/translateUtils";
@@ -38,38 +38,29 @@ function getZodiacSign(dateString) {
   return "Pisces";
 }
 
-// A date string like "1999-07-23" is complete when it has all 3 parts with valid lengths
-function isCompleteDate(dateString) {
-  if (!dateString) return false;
-  const parts = dateString.split("-");
-  if (parts.length !== 3) return false;
-  const [y, m, d] = parts;
-  if (y.length !== 4 || m.length !== 2 || d.length !== 2) return false;
-  const date = new Date(dateString);
-  return !isNaN(date.getTime());
-}
-
 export default function Gemstones() {
   const [birthDate, setBirthDate] = useState("");
-  const [confirmedDate, setConfirmedDate] = useState(""); // only updates on complete valid date
+  const [selected, setSelected] = useState(null);
   const [hindi, setHindi] = useState(false);
   const [translated, setTranslated] = useState({});
   const [translating, setTranslating] = useState(false);
+  const [error, setError] = useState("");
 
-  // Only compute the gemstone from the CONFIRMED date — never flickers mid-type
-  const selected = useMemo(() => {
-    const sign = getZodiacSign(confirmedDate);
-    return ZODIAC_GEMS.find((z) => z.sign === sign) || null;
-  }, [confirmedDate]);
-
-  function handleDateChange(e) {
-    const val = e.target.value;
-    setBirthDate(val);
-    // Only update the confirmed date when the date is fully entered and valid
-    if (isCompleteDate(val)) {
-      setConfirmedDate(val);
-      setHindi(false); // reset translation when date changes
+  // Only runs when user clicks the button — completely stable
+  function handleReveal() {
+    if (!birthDate) {
+      setError("Please select your birth date.");
+      return;
     }
+    const sign = getZodiacSign(birthDate);
+    if (!sign) {
+      setError("Invalid date. Please try again.");
+      return;
+    }
+    const gem = ZODIAC_GEMS.find((z) => z.sign === sign) || null;
+    setSelected(gem);
+    setHindi(false);
+    setError("");
   }
 
   async function handleToggleHindi() {
@@ -92,21 +83,38 @@ export default function Gemstones() {
         <div className="premium-pill">Deep Gemstone Portal</div>
         <h1 className="page-title">Find Your Gemstone by Birth Date</h1>
         <p className="page-subtitle">
-          Your gemstone should be identified by your birth date first. Enter your date of birth below to instantly find your zodiac sign, recommended gemstone, and a more premium realistic 3D crystal presentation.
+          Your gemstone should be identified by your birth date first. Enter your date of birth below to instantly find your zodiac sign, recommended gemstone, and a premium realistic 3D crystal presentation.
         </p>
       </div>
 
+      {/* Input + Button — completely separate from results */}
       <div className="content-panel" style={{ maxWidth: "860px", margin: "0 auto 1.5rem" }}>
         <label className="section-card-title" style={{ fontSize: "1rem" }}>Enter Your Birth Date</label>
         <input
           className="premium-input"
           type="date"
           value={birthDate}
-          onChange={handleDateChange}
+          onChange={(e) => setBirthDate(e.target.value)}
+          style={{ marginBottom: "1rem" }}
         />
-        <p className="helper-text">We will detect your zodiac sign automatically and show your recommended gemstone.</p>
+        {error && (
+          <p style={{ color: "#fca5a5", fontSize: "0.9rem", marginBottom: "0.75rem" }}>{error}</p>
+        )}
+        <div style={{ textAlign: "center" }}>
+          <button
+            className="hero-btn-primary"
+            onClick={handleReveal}
+            disabled={!birthDate}
+          >
+            💎 Reveal My Gemstone
+          </button>
+        </div>
+        <p className="helper-text" style={{ textAlign: "center", marginTop: "0.5rem" }}>
+          We will detect your zodiac sign and show your recommended gemstone.
+        </p>
       </div>
 
+      {/* Results — only renders after button click, never affected by input changes */}
       {selected && (
         <div className="lux-card gem-card ultra-gem-card gemstone-focus-card">
           <div className="gem-header">
@@ -161,7 +169,7 @@ export default function Gemstones() {
       {!selected && (
         <div className="content-panel" style={{ textAlign: "center" }}>
           <div className="shimmer-anim" style={{ fontSize: "3rem" }}>💎</div>
-          <p className="section-card-copy">Enter your birth date to identify your zodiac sign and recommended gemstone correctly.</p>
+          <p className="section-card-copy">Enter your birth date and click Reveal My Gemstone to begin.</p>
         </div>
       )}
     </div>
