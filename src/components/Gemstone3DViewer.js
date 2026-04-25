@@ -1,13 +1,14 @@
+import { memo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Float, Environment, Sparkles } from "@react-three/drei";
 
 function GemBody({ color, shape = "octa" }) {
   const geometry = {
-    octa: <octahedronGeometry args={[1.15, 0]} />,
+    octa:    <octahedronGeometry args={[1.15, 0]} />,
     diamond: <octahedronGeometry args={[1.3, 0]} />,
     emerald: <boxGeometry args={[1.3, 0.9, 1.0]} />,
-    round: <icosahedronGeometry args={[1.1, 0]} />,
-    pear: <coneGeometry args={[0.9, 1.8, 6]} />,
+    round:   <icosahedronGeometry args={[1.1, 0]} />,
+    pear:    <coneGeometry args={[0.9, 1.8, 6]} />,
   }[shape] || <octahedronGeometry args={[1.15, 0]} />;
 
   return (
@@ -30,7 +31,6 @@ function GemBody({ color, shape = "octa" }) {
             emissiveIntensity={0.12}
           />
         </mesh>
-
         <mesh scale={0.72}>
           {geometry}
           <meshPhysicalMaterial
@@ -57,7 +57,9 @@ function BaseShadow() {
   );
 }
 
-export default function Gemstone3DViewer({ color = "#8b5cf6", shape = "octa" }) {
+// memo() prevents ANY re-render unless color or shape actually changes
+// This stops the WebGL Canvas from being destroyed and recreated
+const Gemstone3DViewer = memo(function Gemstone3DViewer({ color = "#8b5cf6", shape = "octa" }) {
   return (
     <div className="gem-3d-frame realistic-gem-frame">
       <Canvas camera={{ position: [0, 0, 4.5], fov: 40 }} shadows>
@@ -73,4 +75,6 @@ export default function Gemstone3DViewer({ color = "#8b5cf6", shape = "octa" }) 
       </Canvas>
     </div>
   );
-}
+});
+
+export default Gemstone3DViewer;
