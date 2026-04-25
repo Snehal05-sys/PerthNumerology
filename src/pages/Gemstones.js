@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef } from "react";
 import PremiumActionBar from "../components/PremiumActionBar";
 import Gemstone3DViewer from "../components/Gemstone3DViewer";
 import { translateText } from "../utils/translateUtils";
@@ -21,6 +21,7 @@ const ZODIAC_GEMS = [
 function getZodiacSign(dateString) {
   if (!dateString) return null;
   const d = new Date(dateString);
+  if (isNaN(d.getTime())) return null;
   const month = d.getMonth() + 1;
   const day = d.getDate();
   if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "Aries";
@@ -37,16 +38,39 @@ function getZodiacSign(dateString) {
   return "Pisces";
 }
 
+// A date string like "1999-07-23" is complete when it has all 3 parts with valid lengths
+function isCompleteDate(dateString) {
+  if (!dateString) return false;
+  const parts = dateString.split("-");
+  if (parts.length !== 3) return false;
+  const [y, m, d] = parts;
+  if (y.length !== 4 || m.length !== 2 || d.length !== 2) return false;
+  const date = new Date(dateString);
+  return !isNaN(date.getTime());
+}
+
 export default function Gemstones() {
   const [birthDate, setBirthDate] = useState("");
+  const [confirmedDate, setConfirmedDate] = useState(""); // only updates on complete valid date
   const [hindi, setHindi] = useState(false);
   const [translated, setTranslated] = useState({});
   const [translating, setTranslating] = useState(false);
 
+  // Only compute the gemstone from the CONFIRMED date — never flickers mid-type
   const selected = useMemo(() => {
-    const sign = getZodiacSign(birthDate);
+    const sign = getZodiacSign(confirmedDate);
     return ZODIAC_GEMS.find((z) => z.sign === sign) || null;
-  }, [birthDate]);
+  }, [confirmedDate]);
+
+  function handleDateChange(e) {
+    const val = e.target.value;
+    setBirthDate(val);
+    // Only update the confirmed date when the date is fully entered and valid
+    if (isCompleteDate(val)) {
+      setConfirmedDate(val);
+      setHindi(false); // reset translation when date changes
+    }
+  }
 
   async function handleToggleHindi() {
     if (!selected) return;
@@ -74,7 +98,12 @@ export default function Gemstones() {
 
       <div className="content-panel" style={{ maxWidth: "860px", margin: "0 auto 1.5rem" }}>
         <label className="section-card-title" style={{ fontSize: "1rem" }}>Enter Your Birth Date</label>
-        <input className="premium-input" type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+        <input
+          className="premium-input"
+          type="date"
+          value={birthDate}
+          onChange={handleDateChange}
+        />
         <p className="helper-text">We will detect your zodiac sign automatically and show your recommended gemstone.</p>
       </div>
 
