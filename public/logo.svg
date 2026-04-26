@@ -1,0 +1,80 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f9a8d4"/>
+      <stop offset="50%" style="stop-color:#c4b5fd"/>
+      <stop offset="100%" style="stop-color:#67e8f9"/>
+    </linearGradient>
+    <linearGradient id="goldGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fde68a"/>
+      <stop offset="100%" style="stop-color:#f9a8d4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer ring -->
+  <circle cx="150" cy="140" r="110" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.6"/>
+  <circle cx="150" cy="140" r="102" fill="none" stroke="#a78bfa" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Tick marks -->
+  <g stroke="#c4b5fd" stroke-width="1" opacity="0.6">
+    <line x1="150" y1="30" x2="150" y2="40"/>
+    <line x1="205" y1="44" x2="200" y2="53"/>
+    <line x1="242" y1="83" x2="234" y2="88"/>
+    <line x1="260" y1="140" x2="250" y2="140"/>
+    <line x1="242" y1="197" x2="234" y2="192"/>
+    <line x1="205" y1="236" x2="200" y2="227"/>
+    <line x1="150" y1="250" x2="150" y2="240"/>
+    <line x1="95" y1="236" x2="100" y2="227"/>
+    <line x1="58" y1="197" x2="66" y2="192"/>
+    <line x1="40" y1="140" x2="50" y2="140"/>
+    <line x1="58" y1="83" x2="66" y2="88"/>
+    <line x1="95" y1="44" x2="100" y2="53"/>
+  </g>
+
+  <!-- Numerals 1–9 -->
+  <g font-family="Georgia, serif" font-size="13" fill="#fde68a" text-anchor="middle" opacity="0.9">
+    <text x="150" y="26">1</text>
+    <text x="207" y="42">2</text>
+    <text x="250" y="85">3</text>
+    <text x="265" y="144">4</text>
+    <text x="250" y="202">5</text>
+    <text x="207" y="244">6</text>
+    <text x="150" y="260">7</text>
+    <text x="93" y="244">8</text>
+    <text x="36" y="144">9</text>
+  </g>
+
+  <!-- Sacred geometry triangles -->
+  <polygon points="150,68 105,148 195,148" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.7"/>
+  <polygon points="150,212 105,132 195,132" fill="none" stroke="#c4b5fd" stroke-width="1.2" opacity="0.7"/>
+
+  <!-- Inner circle -->
+  <circle cx="150" cy="140" r="44" fill="#0d0221" stroke="url(#goldGrad)" stroke-width="1.5"/>
+
+  <!-- Eye -->
+  <path d="M112,140 Q150,103 188,140 Q150,177 112,140 Z" fill="#0a0118" stroke="url(#goldGrad2)" stroke-width="1.8"/>
+
+  <!-- Iris -->
+  <circle cx="150" cy="140" r="17" fill="none" stroke="#c4b5fd" stroke-width="1.2" opacity="0.8"/>
+  <circle cx="150" cy="140" r="9" fill="url(#goldGrad)" opacity="0.95"/>
+
+  <!-- Pupil -->
+  <circle cx="150" cy="140" r="3.5" fill="#0a0118"/>
+
+  <!-- Highlight -->
+  <circle cx="155" cy="135" r="2.5" fill="#ffffff" opacity="0.6"/>
+
+  <!-- Eye tip dots -->
+  <circle cx="112" cy="140" r="2.5" fill="#fde68a" opacity="0.9"/>
+  <circle cx="188" cy="140" r="2.5" fill="#fde68a" opacity="0.9"/>
+
+  <!-- Decorative lines -->
+  <line x1="30" y1="275" x2="108" y2="275" stroke="url(#goldGrad)" stroke-width="0.8" opacity="0.6"/>
+  <line x1="192" y1="275" x2="270" y2="275" stroke="url(#goldGrad)" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="116" cy="275" r="2" fill="#c4b5fd" opacity="0.7"/>
+  <circle cx="184" cy="275" r="2" fill="#c4b5fd" opacity="0.7"/>
+
+  <!-- Text -->
+  <text x="150" y="287" font-family="Georgia, serif" font-size="18" font-weight="700" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="5">PERTH</text>
+  <text x="150" y="300" font-family="Georgia, serif" font-size="9" fill="#a78bfa" text-anchor="middle" letter-spacing="6">NUMEROLOGY</text>
+</svg>
