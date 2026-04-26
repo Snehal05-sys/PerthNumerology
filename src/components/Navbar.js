@@ -54,9 +54,10 @@ export default function Navbar({ page, setPage, user, onLogout }) {
                 WebkitTextFillColor: "transparent",
                 letterSpacing: "0.04em",
               }}
-            >
-              ✦ Perth Numerology
-            </div>
+           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+               <img src="/logo.svg" alt="Perth Numerology" style={{ width: "38px", height: "38px" }} />
+               <span>Perth Numerology</span>
+           </div>
             <div style={{ color: "#94a3b8", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
               Premium Spiritual Commerce
             </div>
