@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PremiumActionBar from "../components/PremiumActionBar";
-import Gemstone3DViewer from "../components/Gemstone3DViewer";
+import GemstoneViewer from "../components/GemstoneViewer";
 import { translateText } from "../utils/translateUtils";
 
 const ZODIAC_GEMS = [
