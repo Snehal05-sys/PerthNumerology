@@ -1,78 +1,122 @@
 import { memo } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Float, Environment, Sparkles } from "@react-three/drei";
 
-function GemBody({ color, shape = "octa" }) {
-  const geometry = {
-    octa:    <octahedronGeometry args={[1.15, 0]} />,
-    diamond: <octahedronGeometry args={[1.3, 0]} />,
-    emerald: <boxGeometry args={[1.3, 0.9, 1.0]} />,
-    round:   <icosahedronGeometry args={[1.1, 0]} />,
-    pear:    <coneGeometry args={[0.9, 1.8, 6]} />,
-  }[shape] || <octahedronGeometry args={[1.15, 0]} />;
-
-  return (
-    <Float speed={2.2} rotationIntensity={0.5} floatIntensity={0.7}>
-      <group rotation={[0.35, 0.6, 0]}>
-        <mesh castShadow receiveShadow>
-          {geometry}
-          <meshPhysicalMaterial
-            color={color}
-            metalness={0.08}
-            roughness={0.02}
-            transmission={0.92}
-            thickness={1.8}
-            ior={2.1}
-            reflectivity={1}
-            clearcoat={1}
-            clearcoatRoughness={0}
-            envMapIntensity={1.6}
-            emissive={color}
-            emissiveIntensity={0.12}
-          />
-        </mesh>
-        <mesh scale={0.72}>
-          {geometry}
-          <meshPhysicalMaterial
-            color={"#ffffff"}
-            transparent
-            opacity={0.08}
-            transmission={1}
-            roughness={0}
-            thickness={2}
-            ior={2.2}
-          />
-        </mesh>
-      </group>
-    </Float>
-  );
-}
-
-function BaseShadow() {
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.5, 0]}>
-      <circleGeometry args={[1.2, 48]} />
-      <meshBasicMaterial color="#111827" transparent opacity={0.35} />
-    </mesh>
-  );
-}
-
-// memo() prevents ANY re-render unless color or shape actually changes
-// This stops the WebGL Canvas from being destroyed and recreated
+// Pure CSS gemstone — no WebGL, no Three.js, cannot crash or disappear
 const Gemstone3DViewer = memo(function Gemstone3DViewer({ color = "#8b5cf6", shape = "octa" }) {
+  const size = 140;
+  const half = size / 2;
+
+  // Different SVG polygon shapes per gem type
+  const shapes = {
+    octa: `${half},10 ${size-10},${half} ${half},${size-10} 10,${half}`,
+    diamond: `${half},5 ${size-15},${half-10} ${half},${size-5} 15,${half-10}`,
+    emerald: `20,30 ${size-20},30 ${size-10},${half} ${size-20},${size-30} 20,${size-30} 10,${half}`,
+    round: `${half},8 ${size-20},20 ${size-8},${half} ${size-20},${size-20} ${half},${size-8} 20,${size-20} 8,${half} 20,20`,
+    pear: `${half},8 ${size-15},${half+10} ${size-25},${size-15} 25,${size-15} 15,${half+10}`,
+  };
+
+  const points = shapes[shape] || shapes.octa;
+
   return (
-    <div className="gem-3d-frame realistic-gem-frame">
-      <Canvas camera={{ position: [0, 0, 4.5], fov: 40 }} shadows>
-        <ambientLight intensity={0.75} />
-        <directionalLight position={[4, 5, 3]} intensity={2.1} />
-        <pointLight position={[-3, 2, 2]} intensity={1.3} />
-        <pointLight position={[2, -2, 2]} intensity={0.8} color={color} />
-        <Sparkles count={40} scale={[4, 2.5, 4]} size={2.2} speed={0.5} color={color} />
-        <GemBody color={color} shape={shape} />
-        <BaseShadow />
-        <Environment preset="city" />
-        <OrbitControls enablePan={false} autoRotate autoRotateSpeed={1.1} />
-      </Canvas>
+    <div style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+      height: "220px",
+      position: "relative",
+    }}>
+      {/* Glow behind gem */}
+      <div style={{
+        position: "absolute",
+        width: "140px",
+        height: "140px",
+        borderRadius: "50%",
+        background: color,
+        filter: "blur(40px)",
+        opacity: 0.25,
+        animation: "gemGlow 3s ease-in-out infinite",
+      }} />
+
+      {/* SVG Gem */}
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        style={{
+          filter: `drop-shadow(0 0 18px ${color}88)`,
+          animation: "gemFloat 4s ease-in-out infinite",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <defs>
+          <linearGradient id={`gemGrad-${shape}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+            <stop offset="30%" stopColor={color} stopOpacity="0.95" />
+            <stop offset="70%" stopColor={color} stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#000000" stopOpacity="0.4" />
+          </linearGradient>
+          <linearGradient id={`gemShine-${shape}`} x1="0%" y1="0%" x2="60%" y2="100%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
+        {/* Main gem body */}
+        <polygon
+          points={points}
+          fill={`url(#gemGrad-${shape})`}
+          stroke={color}
+          strokeWidth="1"
+          strokeOpacity="0.5"
+        />
+
+        {/* Shine overlay */}
+        <polygon
+          points={points}
+          fill={`url(#gemShine-${shape})`}
+        />
+
+        {/* Inner facet lines */}
+        <line x1={half} y1="10" x2={half} y2={size-10} stroke="#ffffff" strokeWidth="0.5" strokeOpacity="0.2" />
+        <line x1="10" y1={half} x2={size-10} y2={half} stroke="#ffffff" strokeWidth="0.5" strokeOpacity="0.2" />
+      </svg>
+
+      {/* Sparkle dots */}
+      {[
+        { top: "15%", left: "20%", delay: "0s", size: 4 },
+        { top: "25%", left: "75%", delay: "0.8s", size: 3 },
+        { top: "70%", left: "15%", delay: "1.4s", size: 3 },
+        { top: "75%", left: "80%", delay: "0.4s", size: 4 },
+        { top: "45%", left: "85%", delay: "1.8s", size: 2 },
+      ].map((s, i) => (
+        <div key={i} style={{
+          position: "absolute",
+          top: s.top,
+          left: s.left,
+          width: s.size,
+          height: s.size,
+          borderRadius: "50%",
+          background: color,
+          opacity: 0.7,
+          animation: `sparkle 2s ${s.delay} ease-in-out infinite`,
+        }} />
+      ))}
+
+      <style>{`
+        @keyframes gemFloat {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-12px) rotate(3deg); }
+        }
+        @keyframes gemGlow {
+          0%, 100% { opacity: 0.2; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.15); }
+        }
+        @keyframes sparkle {
+          0%, 100% { opacity: 0; transform: scale(0); }
+          50% { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
     </div>
   );
 });
