@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import PremiumActionBar from "../components/PremiumActionBar";
-//import { translateText } from "../utils/translateUtils";
+import { translateText } from "../utils/translateUtils";
 
 const REMEDIES = [
   {
