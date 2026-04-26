@@ -104,7 +104,7 @@ export default function Numerology({ user, onSaveHistory }) {
         <div className="premium-pill">Commercial Master Numerology</div>
         <h1 className="page-title">Premium Numerology Reading</h1>
         <p className="page-subtitle">
-          Now corrected so destiny numbers and meanings change properly per client based on their real name and date of birth. Every client now gets a different calculated result and tailored guidance text.
+        Every number in your life carries a hidden vibration — a cosmic signature that shapes who you are and where you are destined to go. Enter your name and birth date. Let the numbers reveal your cosmic path!
         </p>
       </div>
 
