@@ -1,5 +1,3 @@
-// ── Translation Utility using MyMemory free API ───────────────────────────
-
 export async function translateText(text, targetLang = "hi") {
   try {
     const res = await fetch(
