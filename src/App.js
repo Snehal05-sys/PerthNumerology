@@ -93,10 +93,10 @@ export default function App() {
 
       <footer style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "2rem 1rem", borderTop: "1px solid rgba(139,92,246,0.2)", color: "#6b7280", fontSize: "0.85rem" }}>
         <div style={{ fontFamily: "'Cinzel Decorative', serif", color: "#a78bfa", marginBottom: "0.5rem" }}>✦ Perth Numerology ✦</div>
-        <p>Crafted with cosmic wisdom · Built to modernize spiritual insight beyond ancient offline-only tarot rituals · 2026</p>
+        <p> Crafted for seekers · Bringing ancient cosmic wisdom to the modern world . 2026</p>
         <div style={{ marginTop: "0.9rem", color: "#94a3b8", lineHeight: 1.8 }}>
           <div style={{ fontWeight: 700, color: "#c4b5fd" }}>Creators — Students of DR MPS College of Business Studies</div>
-          <div>1. Snehal Devkar &nbsp; 2. Hardik Kansal &nbsp; 3. Shreya Singh</div>
+          <div>1. Snehal Devkar &nbsp; 2. Hardik Kansal &nbsp; 3. Shreya Singh &nbsp; 4.Harshit Chauhan </div>
         </div>
       </footer>
     </div>
