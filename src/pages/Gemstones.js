@@ -125,7 +125,7 @@ export default function Gemstones() {
 
           <div className="gemstone-main-layout">
             <div>
-              <Gemstone3DViewer color={selected.color} shape={selected.shape} />
+              <GemstoneViewer color={selected.color} shape={selected.shape} />
              <div className="gem-legend-row">
               <span className="gem-dot" style={{ background: selected.color }}></span>
               <span className="gem-legend-text">✦ Your Sacred Gemstone • {selected.sign} Crystal</span>
