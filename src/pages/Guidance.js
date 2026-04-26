@@ -52,7 +52,6 @@ export default function Guidance({ history = [] }) {
     <div className="fade-in page-shell">
       <div className="page-header">
         <div className="premium-pill">Premium Coaching Insight</div>
-        <div className="premium-pill">Premium Spiritual Coaching Dashboard</div>
         <h1 className="page-title">Guidance Portal</h1>
         <p className="page-subtitle">Ask for clarity, receive longer-form spiritual coaching, and use your recent saved readings as contextual guidance when available.</p>
       </div>
