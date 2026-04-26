@@ -1,5 +1,3 @@
-// ── Speech Utility using Web Speech API ──────────────────────────────────
-
 let utterance = null;
 
 export function speakText(text) {
@@ -8,7 +6,6 @@ export function speakText(text) {
   utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
   utterance.rate = 0.95;
-  utterance.pitch = 1;
   window.speechSynthesis.speak(utterance);
 }
 
@@ -24,4 +21,3 @@ export function stopSpeech() {
   if (window.speechSynthesis) window.speechSynthesis.cancel();
   utterance = null;
 }
-
