@@ -11,7 +11,6 @@ import Auth from "./pages/Auth";
 import Gemstones from "./pages/Gemstones";
 import MantrasRemedies from "./pages/MantrasRemedies";
 import { apiGetMe, apiGetHistory, apiSaveReading, apiLogout } from "./utils/api";
-import CursorTrail from "./components/CursorTrail";
 import LoadingScreen from "./components/LoadingScreen";
 
 export default function App() {
@@ -79,8 +78,7 @@ const [showLoader, setShowLoader] = useState(true);
 
   return (
    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #0a0118 0%, #0d0221 40%, #060f1e 100%)", fontFamily: "'Crimson Text', Georgia, serif", color: "#e2d5f8", position: "relative", overflowX: "hidden" }}>
-      {showLoader && <LoadingScreen onDone={() => setShowLoader(false)} />}
-      <CursorTrail />
+     {showLoader && <LoadingScreen onDone={() => setShowLoader(false)} />}
       <Starfield />
       <FloatingOrbs />
       <Navbar page={page} setPage={setPage} user={user} onLogout={handleLogout} />
