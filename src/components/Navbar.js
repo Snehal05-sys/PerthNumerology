@@ -53,7 +53,7 @@ export default function Navbar({ page, setPage, user, onLogout }) {
               Perth Numerology
             </div>
             <div style={{ color: "#94a3b8", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-              Premium Spiritual Commerce
+              Curated Cosmic Experiences
             </div>
           </div>
         </div>
