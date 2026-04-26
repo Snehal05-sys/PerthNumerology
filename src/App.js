@@ -78,7 +78,9 @@ const [showLoader, setShowLoader] = useState(true);
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #0a0118 0%, #0d0221 40%, #060f1e 100%)", fontFamily: "'Crimson Text', Georgia, serif", color: "#e2d5f8", position: "relative", overflowX: "hidden" }}>
+   <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #0a0118 0%, #0d0221 40%, #060f1e 100%)", fontFamily: "'Crimson Text', Georgia, serif", color: "#e2d5f8", position: "relative", overflowX: "hidden" }}>
+      {showLoader && <LoadingScreen onDone={() => setShowLoader(false)} />}
+      <CursorTrail />
       <Starfield />
       <FloatingOrbs />
       <Navbar page={page} setPage={setPage} user={user} onLogout={handleLogout} />
