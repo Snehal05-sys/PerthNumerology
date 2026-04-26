@@ -33,15 +33,10 @@ export default function Navbar({ page, setPage, user, onLogout }) {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", cursor: "pointer" }} onClick={() => setPage("home")}>
-          <div
-            className="logo-orb"
-            style={{
-              width: "44px",
-              height: "44px",
-              borderRadius: "999px",
-              background: "radial-gradient(circle at 30% 30%, #fde68a, #8b5cf6 45%, #0f172a 80%)",
-              boxShadow: "0 0 24px rgba(124,58,237,0.28)",
-            }}
+          <img
+            src="/logo.svg"
+            alt="Perth Numerology"
+            style={{ width: "44px", height: "44px" }}
           />
           <div>
             <div
@@ -54,10 +49,9 @@ export default function Navbar({ page, setPage, user, onLogout }) {
                 WebkitTextFillColor: "transparent",
                 letterSpacing: "0.04em",
               }}
-           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-               <img src="/logo.svg" alt="Perth Numerology" style={{ width: "38px", height: "38px" }} />
-               <span>Perth Numerology</span>
-           </div>
+            >
+              Perth Numerology
+            </div>
             <div style={{ color: "#94a3b8", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
               Premium Spiritual Commerce
             </div>
