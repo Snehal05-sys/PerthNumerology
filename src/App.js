@@ -11,12 +11,15 @@ import Auth from "./pages/Auth";
 import Gemstones from "./pages/Gemstones";
 import MantrasRemedies from "./pages/MantrasRemedies";
 import { apiGetMe, apiGetHistory, apiSaveReading, apiLogout } from "./utils/api";
+import CursorTrail from "./components/CursorTrail";
+import LoadingScreen from "./components/LoadingScreen";
 
 export default function App() {
   const [page, setPage] = useState("home");
   const [user, setUser] = useState(null);
   const [history, setHistory] = useState([]);
-  const [loadingUser, setLoadingUser] = useState(true);
+ const [loadingUser, setLoadingUser] = useState(true);
+const [showLoader, setShowLoader] = useState(true);
 
   // On mount: try to restore session from stored JWT token
   useEffect(() => {
