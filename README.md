@@ -162,5 +162,5 @@ MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/perth_n
 
 ---
 
-Made with ✦ cosmic wisdom ✦ for educational purposes  
+Made for educational purposes  
 Students of DR MPS College of Business Studies
